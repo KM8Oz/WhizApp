@@ -1,0 +1,8 @@
+Website = "https://whatsappmanager.dup.comany"
+
+[Details]
+  Icon = "Icon.icns"
+  Name = "WhizApp"
+  ID = "comany.dup.whizapp"
+  Version = "1.0.0"
+  Build = 2

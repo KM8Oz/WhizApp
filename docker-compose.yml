@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  whatsapp-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./store.db:/store.db
+      - .env:/.env
