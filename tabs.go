@@ -10,7 +10,7 @@ func showtabs(win fyne.Window) {
 	tabs := container.NewAppTabs(
 		container.NewTabItemWithIcon("Accounts", resourceIcons8Whatsapp128Png, ShowAccountsWindow(win)),
 		container.NewTabItemWithIcon("Targets", resourceIcons8Target72XxhdpiPng, groupstable()),
-		container.NewTabItemWithIcon("Settings", resourceIcons8Settings128Png, widget.NewLabel("Settings tab")),
+		container.NewTabItemWithIcon("Logs", resourceIcons8Settings128Png, widget.NewLabel("Settings tab")),
 		container.NewTabItemWithIcon("About", resourceIcons8About150Png, widget.NewLabel("About tab")),
 	)
 
