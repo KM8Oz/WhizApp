@@ -1,6 +1,6 @@
 ## WhizApp
 Streamline and Empower Your WhatsApp Experience with AI-Driven Management
-> WhatsApp Desktop Assistant (GPT2-Powered)
+> WhatsApp Desktop Assistant (GPT3.5-Powered)
 
 Welcome to the WhatsApp Desktop Assistant! This application is a GPT2-powered chatbot that acts as an assistant based on the user's chat history. It leverages the power of GPT2, fine-tuned using machine learning techniques, to provide intelligent responses and assist with various tasks.
 
