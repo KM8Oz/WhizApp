@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"path"
 	"sync"
 
 	"fyne.io/fyne/v2"
@@ -18,6 +19,7 @@ import (
 // Account represents an individual account.
 type Account struct {
 	Name         string
+	Isselected   bool
 	DatabasePath string
 }
 
@@ -28,6 +30,15 @@ var (
 
 type AccountStore struct {
 	Accounts []Account
+}
+
+func getAccountByName(accounts []Account, name string) *Account {
+	for i := 0; i < len(accounts); i++ {
+		if accounts[i].Name == name {
+			return &accounts[i]
+		}
+	}
+	return nil
 }
 
 // SaveAccounts saves the accounts to the database.
@@ -58,7 +69,12 @@ func LoadAccounts() ([]Account, error) {
 // ShowAccountsWindow displays the main window with the list of accounts.
 func ShowAccountsWindow(window fyne.Window) fyne.CanvasObject {
 	GUIAPP._win.SetTitle("Whatsapp business manager: accounts")
-	db, err := gorm.Open(sqlite.Open("accounts.db"), &gorm.Config{})
+	home, err := getUserHomeDir()
+	if err != nil {
+		panic("failed to get home dir")
+	}
+	_pathdb := path.Join(home, "accounts.db")
+	db, err := gorm.Open(sqlite.Open(_pathdb), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
 	}
@@ -74,7 +90,7 @@ func ShowAccountsWindow(window fyne.Window) fyne.CanvasObject {
 	})
 	addButton.Resize(fyne.NewSize(100, 50))
 	var vbox fyne.CanvasObject
-	// vbox.Resize(fyne.NewSize(600, 500))
+	var fistload bool = true
 	if len(accounts) == 0 {
 		vbox = container.NewVBox(
 			widget.NewLabel("Account List"),
@@ -87,19 +103,46 @@ func ShowAccountsWindow(window fyne.Window) fyne.CanvasObject {
 				return len(store.Accounts)
 			},
 			func() fyne.CanvasObject {
-				return widget.NewLabel("")
+				toolbar1 := widget.NewToolbar(
+					widget.NewToolbarSeparator(),
+					widget.NewToolbarAction(theme.DeleteIcon(), func() {
+						// _db.Model(&Account{}).Where("Name = ?", account.Name).Update("isselected", true)
+					}),
+				)
+				return container.NewBorder(nil, nil, nil, toolbar1, widget.NewLabel(""))
 			},
-			func(i widget.ListItemID, obj fyne.CanvasObject) {
-				obj.(*widget.Label).SetText(store.Accounts[i].Name)
-			},
+			nil,
 		)
-
-		accountList.OnSelected = func(id widget.ListItemID) {
-			account := &store.Accounts[id]
-			log.Println("Selected Account:", account.Name)
+		accountList.UpdateItem = func(i widget.ListItemID, obj fyne.CanvasObject) {
+			account := store.Accounts[i]
+			if obj.(*fyne.Container).Objects[0].(*widget.Label).Text == "" {
+				obj.(*fyne.Container).Objects[0].(*widget.Label).SetText(account.Name)
+				if account.Isselected {
+					accountList.Select(i)
+					fistload = false
+				}
+			}
 		}
-		// accountList.Resize(fyne.NewSize(accountList.Size().Width, 300))
-
+		accountList.OnSelected = func(id widget.ListItemID) {
+			if !fistload {
+				account := &store.Accounts[id]
+				_db.Model(&Account{}).Where("Name = ?", account.Name).Update("isselected", true)
+				_db.Model(&Account{}).Where("Name != ?", account.Name).Update("isselected", false)
+				err = setclient(account)
+				println(err)
+			}
+		}
+		var isnothing_selected bool = true
+		for _, v := range store.Accounts {
+			if v.Isselected {
+				isnothing_selected = false
+			}
+		}
+		if isnothing_selected {
+			_db.Model(&Account{}).Where("Name = ?", &store.Accounts[0].Name).Update("isselected", true)
+			err = setclient(&store.Accounts[0])
+			println(err)
+		}
 		vbox = container.New(layout.NewPaddedLayout(),
 			container.NewBorder(widget.NewLabel("Account List"), addButton, nil, nil, container.NewAdaptiveGrid(1,
 				accountList,
@@ -108,18 +151,29 @@ func ShowAccountsWindow(window fyne.Window) fyne.CanvasObject {
 	}
 	return vbox
 }
+func setclient(account *Account) error {
+	client, err := getclient(account.DatabasePath)
+	if err == nil {
+		GUIAPP.client = client
+		return nil
+	}
+	return err
+}
 
 // ShowAddAccountWindow displays the window to add a new account.
 func ShowAddAccountWindow(window fyne.Window) {
 	var wg sync.WaitGroup
 	accountNameEntry := widget.NewEntry()
 	accountNameEntry.SetPlaceHolder("Account Name")
-
+	win := GUIAPP._app.NewWindow("New account form")
+	// pattern := "^(?=.*[a-zA-Z0-9])[a-zA-Z0-9]+$"
+	// accountNameEntry.Validator = validation.NewRegexp(pattern, "Invalid input [not empty string or number]")
+	// accountNameEntry.SetValidationError(fmt.Errorf("Account name are required"))
 	saveButton := widget.NewButton("Save", func() {
 		name := accountNameEntry.Text
-
 		if name == "" {
 			log.Println("Account name are required.")
+			accountNameEntry.Validate()
 			return
 		}
 		go tryconnect(&name, &wg)
@@ -127,6 +181,7 @@ func ShowAddAccountWindow(window fyne.Window) {
 
 	cancelButton := widget.NewButton("Cancel", func() {
 		showtabs(window)
+		win.Close()
 	})
 
 	form := &widget.Form{
@@ -139,7 +194,7 @@ func ShowAddAccountWindow(window fyne.Window) {
 
 	form.Append("Connect", widget.NewFormItem("", saveButton).Widget)
 	form.Append("Cancel", widget.NewFormItem("", cancelButton).Widget)
-
-	window.SetContent(form)
-	window.Show()
+	win.Resize(fyne.NewSize(400, 150))
+	win.SetContent(form)
+	win.Show()
 }

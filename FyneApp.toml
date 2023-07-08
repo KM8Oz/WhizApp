@@ -1,8 +1,8 @@
-Website = "https://whatsappmanager.dup.comany"
+Website = "https://whizapp.dup.comany"
 
 [Details]
   Icon = "Icon.icns"
   Name = "WhizApp"
-  ID = "comany.dup.whizapp"
+  ID = "company.dup.whizapp"
   Version = "1.0.0"
   Build = 2
