@@ -1,12 +1,9 @@
 package main
 
 import (
-	"log"
-
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/data/binding"
-	"github.com/joho/godotenv"
 	"github.com/tmc/langchaingo/schema"
 	"go.mau.fi/whatsmeow"
 	"go.mau.fi/whatsmeow/types"
@@ -33,10 +30,10 @@ var globaldocs map[string][]schema.Document = map[string][]schema.Document{}
 var global_context string = "you are a helpful personal assistant"
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Failed to load envirement file:", err)
-	}
+	// err := godotenv.Load()
+	// if err != nil {
+	// 	log.Fatal("Failed to load envirement file:", err)
+	// }
 	app := app.New()
 	GUIAPP._app = app
 	app.SetIcon(resourceIcon256Png)

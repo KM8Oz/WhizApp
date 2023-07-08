@@ -146,10 +146,10 @@ func GenerateGPTResponse(input string, gpt *openai.Client) string {
 }
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		panic("Failed to load .env file")
-	}
+	// err := godotenv.Load()
+	// if err != nil {
+	// 	panic("Failed to load .env file")
+	// }
 	dbLog := waLog.Stdout("Database", "DEBUG", true)
 	container, err := sqlstore.New("sqlite3", "file:store.db?_foreign_keys=on", dbLog)
 	if err != nil {
