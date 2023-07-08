@@ -26,7 +26,6 @@ Welcome to the WhatsApp Desktop Assistant! This application is a GPT3.5-powered 
 ## Installation
 
 1. **Clone the repository**:
-
    ```
    git clone https://github.com/your/repository.git
    ```
