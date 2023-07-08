@@ -13,21 +13,6 @@ const team = {
     name: "Abdelilah AKHMIM",
     job: "AI & IT Engineering Student ",
     image: AkhmimImg,
-  }, 
- contributor3: {
-    name: "Remaz AHMED",
-    job: "Mechatronics Engineer",
-    image: RemazImg,
-  },
-  contributor4: {
-    name: "Habiba ASHRAF",
-    job: "Student",
-    image: HabibaImg,
-  },
-  contributor5: {
-    name: "Nadin AHMED",
-    job: "Mechatronics Engineer",
-    image: NadinImg,
   },
 };
 

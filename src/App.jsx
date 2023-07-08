@@ -184,33 +184,6 @@ function App() {
             <h4 className="p-5">{team.contributor2.name}</h4>
             <p>{team.contributor2.job}</p>
           </div>
-          <div className="colab">
-            <img
-              className="team-img"
-              src={team.contributor3.image}
-              alt="team"
-            />
-            <h4 className="p-5">{team.contributor3.name}</h4>
-            <p>{team.contributor3.job}</p>
-          </div>
-          <div className="colab">
-            <img
-              className="team-img"
-              src={team.contributor4.image}
-              alt="team"
-            />
-            <h4 className="p-5">{team.contributor4.name}</h4>
-            <p>{team.contributor4.job}</p>
-          </div>
-          <div className="colab">
-            <img
-              className="team-img"
-              src={team.contributor5.image}
-              alt="team"
-            />
-            <h4 className="p-5">{team.contributor5.name}</h4>
-            <p>{team.contributor5.job}</p>
-          </div>
         </div>
         <div className="bg-neutral-200 p-6 text-center dark:bg-neutral-700 flex-end w-screen">
           <span className="">© 2023 By💟. All Right Reserved.</span>
