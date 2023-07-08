@@ -6,7 +6,7 @@ Welcome to the WhatsApp Desktop Assistant! This application is a GPT3.5-powered 
 
 ## Features
 
-- **Intelligent Chatbot**: The assistant is built using GPT2, a state-of-the-art language model, which enables it to generate human-like responses based on the user's chat history.
+- **Intelligent Chatbot**: The assistant is built using GPT3.5, a state-of-the-art language model, which enables it to generate human-like responses based on the user's chat history.
 - **Contextual Understanding**: By analyzing the user's chat history, the assistant can understand the context and provide relevant and personalized responses.
 - **Task Assistance**: The assistant can perform various tasks such as sending messages, retrieving chat history, managing contacts, and more.
 - **WhatsApp Integration**: The application is seamlessly integrated with WhatsApp, allowing users to interact with their WhatsApp account directly from the desktop application.
