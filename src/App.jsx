@@ -160,7 +160,7 @@ function App() {
 
       </main>
 
-      <footer className="flex-box w-screen scroll-tap">
+      <footer className="flex w-full justify-center scroll-tap mx-auto mb-0">
         <p className="text-4xl font-semibold">
           Team 
         </p>
