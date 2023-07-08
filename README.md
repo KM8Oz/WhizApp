@@ -2,7 +2,7 @@
 Streamline and Empower Your WhatsApp Experience with AI-Driven Management
 > WhatsApp Desktop Assistant (GPT3.5-Powered)
 
-Welcome to the WhatsApp Desktop Assistant! This application is a GPT2-powered chatbot that acts as an assistant based on the user's Context . It leverages the power of GPT3.5 turbo, to provide intelligent responses and assist with various tasks.
+Welcome to the WhatsApp Desktop Assistant! This application is a GPT3.5-powered chatbot that acts as an assistant based on the user's Context . It leverages the power of GPT3.5 turbo, to provide intelligent responses and assist with various tasks.
 
 ## Features
 
@@ -12,17 +12,6 @@ Welcome to the WhatsApp Desktop Assistant! This application is a GPT2-powered ch
 - **Task Assistance**: The assistant can perform various tasks such as sending messages, managing targets, add context to the AI assistance .
 - **WhatsApp Integration**: The application is seamlessly integrated with WhatsApp, allowing users to interact with their WhatsApp account directly controlled from the desktop application.
 - **Golang and Fyne.io Framework**: The application is developed using the Go programming language and utilizes the Fyne.io framework for building the user interface.
-
-## download
-
-- [Download darwin folder](http://dl.whizapp.dup.company/darwin/)
-- [Download linux-386 folder](http://dl.whizapp.dup.company/linux-386/)
-- [Download linux-amd64 folder](http://dl.whizapp.dup.company/linux-amd64/)
-- [Download linux-arm folder](http://dl.whizapp.dup.company/linux-arm/)
-- [Download linux-arm64 folder](http://dl.whizapp.dup.company/linux-arm64/)
-- [Download windows-386 folder](http://dl.whizapp.dup.company/windows-386/)
-- [Download windows-amd64 folder](http://dl.whizapp.dup.company/windows-amd64/)
-- [Download windows-arm64 folder](http://dl.whizapp.dup.company/windows-arm64/)
 
 ## Installation
 
@@ -38,11 +27,7 @@ Welcome to the WhatsApp Desktop Assistant! This application is a GPT2-powered ch
    go mod tidy
    ```
 
-3. **Provide WhatsApp API credentials**:
-
-   In order to connect to the WhatsApp service, you need to obtain the necessary API credentials. Obtain the `wpProto` credentials and replace the placeholders in the `config.yaml` file with your actual credentials.
-
-4. **Build and run the application**:
+3. **Build and run the application**:
 
    ```
    go build
