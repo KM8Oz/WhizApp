@@ -13,6 +13,17 @@ Welcome to the WhatsApp Desktop Assistant! This application is a GPT2-powered ch
 - **WhatsApp Integration**: The application is seamlessly integrated with WhatsApp, allowing users to interact with their WhatsApp account directly controlled from the desktop application.
 - **Golang and Fyne.io Framework**: The application is developed using the Go programming language and utilizes the Fyne.io framework for building the user interface.
 
+## download
+
+- [Download darwin folder](http://dl.whizapp.dup.company/darwin/)
+- [Download linux-386 folder](http://dl.whizapp.dup.company/linux-386/)
+- [Download linux-amd64 folder](http://dl.whizapp.dup.company/linux-amd64/)
+- [Download linux-arm folder](http://dl.whizapp.dup.company/linux-arm/)
+- [Download linux-arm64 folder](http://dl.whizapp.dup.company/linux-arm64/)
+- [Download windows-386 folder](http://dl.whizapp.dup.company/windows-386/)
+- [Download windows-amd64 folder](http://dl.whizapp.dup.company/windows-amd64/)
+- [Download windows-arm64 folder](http://dl.whizapp.dup.company/windows-arm64/)
+
 ## Installation
 
 1. **Clone the repository**:
