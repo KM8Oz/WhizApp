@@ -160,7 +160,6 @@ func fillgrid(grid *fyne.Container, account Account, wg *sync.WaitGroup) {
 					_profileimage = canvas.NewImageFromResource(resourceIcons8Target96XxxhdpiPng)
 					_profileimage.FillMode = canvas.ImageFillOriginal
 					// if _err != nil {
-
 					// } else {
 					// 	_bytes, err := GUIAPP.client.DownloadAny(&proto.Message{
 					// 		ImageMessage: &proto.ImageMessage{
@@ -191,61 +190,70 @@ func fillgrid(grid *fyne.Container, account Account, wg *sync.WaitGroup) {
 					// 		item.isactive.Set(true)
 					// 	}
 					// }))
-					item, err := infoTargetsbng.GetValue(jid.User)
-					boolean := item.(InfoTarget).isactive
-					boolean.AddListener(binding.NewDataListener(func() {
-						myitem := item.(InfoTarget)
-						if v, err := boolean.Get(); v && err == nil {
-							var COUNT int64
-							var _targets Targets
-							res := Targetsdb.Model(&Targets{}).Assign(&Targets{
-								Account: active_account.Name,
-							}).FirstOrCreate(_targets, "Account = ?", active_account.Name)
-							res.Count(&COUNT)
-							if res.Error == nil && COUNT > 0 {
-								eer := res.Association("Members").Append(&Member{
-									Name:         myitem.info.FirstName,
-									Fullname:     myitem.info.FullName,
-									Businessname: myitem.info.BusinessName,
-									Jid:          myitem.jid.User,
-								})
-								if eer != nil {
-									fmt.Println(eer)
+					if item, err := infoTargetsbng.GetValue(jid.User); err == nil {
+						boolean := item.(InfoTarget).isactive
+						boolean.AddListener(binding.NewDataListener(func() {
+							myitem := item.(InfoTarget)
+							if v, err := boolean.Get(); v && err == nil {
+								var COUNT int64
+								var _targets Targets
+								res := Targetsdb.Model(&Targets{}).Assign(&Targets{
+									Account: active_account.Name,
+								}).FirstOrCreate(_targets, "Account = ?", active_account.Name)
+								res.Count(&COUNT)
+								if res.Error == nil && COUNT > 0 {
+									eer := res.Association("Members").Append(&Member{
+										Name:         myitem.info.FirstName,
+										Fullname:     myitem.info.FullName,
+										Businessname: myitem.info.BusinessName,
+										Jid:          myitem.jid.User,
+									})
+									if eer != nil {
+										fmt.Println(eer)
+									}
+								} else {
+									Targetsdb.Create(&Targets{
+										Account: active_account.Name,
+										Members: []Member{
+											{
+												Name:         myitem.info.FirstName,
+												Fullname:     myitem.info.FullName,
+												Businessname: myitem.info.BusinessName,
+												Jid:          myitem.jid.User,
+											},
+										},
+									})
 								}
 							} else {
-								Targetsdb.Create(&Targets{
-									Account: active_account.Name,
-									Members: []Member{
-										{
-											Name:         myitem.info.FirstName,
-											Fullname:     myitem.info.FullName,
-											Businessname: myitem.info.BusinessName,
-											Jid:          myitem.jid.User,
-										},
-									},
-								})
-							}
-						} else {
-							var _targets Targets
-							res := Targetsdb.Model(&Targets{}).First(_targets, "Account = ?", active_account.Name)
-							if res.Error == nil {
-								eer := res.Association("Members").Delete(&Member{
-									Jid: myitem.jid.User,
-								})
-								if eer != nil {
-									fmt.Println(eer)
+								var _targets Targets
+								res := Targetsdb.Model(&Targets{}).First(_targets, "Account = ?", active_account.Name)
+								if res.Error == nil {
+									eer := res.Association("Members").Delete(&Member{
+										Jid: myitem.jid.User,
+									})
+									if eer != nil {
+										fmt.Println(eer)
+									}
 								}
 							}
-						}
-					}))
+						}))
+					}
 					if err != nil {
 						fmt.Printf("item: %v", err)
 					}
-					card := container.NewPadded(
-						title,
-						widget.NewCheckWithData(jid.User, boolean),
-					)
-					grid.Add(card)
+
+					if item, err := infoTargetsbng.GetValue(jid.User); err == nil {
+						boolean := item.(InfoTarget).isactive
+						checker := widget.NewCheck(jid.User, func(b bool) {})
+						if ok, err := boolean.Get(); err == nil {
+							checker.SetChecked(ok)
+						}
+						card := container.NewPadded(
+							title,
+							checker,
+						)
+						grid.Add(card)
+					}
 				}
 			}
 		}

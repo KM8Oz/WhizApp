@@ -7,7 +7,6 @@ import (
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
-	"fyne.io/fyne/v2/data/binding"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 	openai "github.com/sashabaranov/go-openai"
@@ -84,7 +83,6 @@ func createSettingPage() fyne.CanvasObject {
 		global_context = s
 	}
 	contextinput.SetText(global_context)
-	Status.AddListener(binding.NewDataListener(Listner))
 	form := widget.NewForm(
 		widget.NewFormItem("Activated Group", groupDropdown),
 		widget.NewFormItem("Targets Filter", targetsCheckbox),
@@ -107,6 +105,7 @@ func createSettingPage() fyne.CanvasObject {
 		// Handle save button action
 		if b, err := Status.Get(); b && err == nil {
 			Status.Set(false)
+			Listner(false, saveButton)
 			if saveButton != nil {
 				saveButton.Text = botstatus[0]
 				saveButton.Icon = boticons[0]
@@ -114,6 +113,7 @@ func createSettingPage() fyne.CanvasObject {
 			}
 		} else {
 			Status.Set(true)
+			Listner(true, saveButton)
 			if saveButton != nil {
 				saveButton.Text = botstatus[1]
 				saveButton.Icon = boticons[1]
@@ -129,9 +129,19 @@ func createSettingPage() fyne.CanvasObject {
 	return content
 }
 
-func Listner() {
-	if ok, err := Status.Get(); ok && err == nil {
-
+func Listner(status bool, saveButton *widget.Button) {
+	saveButton.Disable()
+	// var i int = 0
+	// for item, err := infoTargetsbng.GetValue(infoTargetsbng.Keys()[i]); err == nil; {
+	// 	if contact, ok := item.(InfoTarget); ok {
+	// 		if ok, err := contact.isactive.Get(); err == nil {
+	// 			if ok {
+	// 				fmt.Printf("active contact: %v\n", contact.info.FullName)
+	// 			}
+	// 		}
+	// 	}
+	// }
+	if status {
 		if GUIAPP.client != nil {
 			gpt := openai.NewClient(openaiAPIKey)
 			_, _err := gpt.GetModel(context.Background(), openai.GPT3Dot5Turbo)
@@ -146,4 +156,5 @@ func Listner() {
 		GUIAPP.client.RemoveEventHandlers()
 		GUIAPP.client.Disconnect()
 	}
+	saveButton.Enable()
 }
