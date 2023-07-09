@@ -23,6 +23,10 @@ Welcome to the WhatsApp Desktop Assistant! This application is a GPT3.5-powered 
 - [Download windows-amd64 folder](http://dl.whizapp.dup.company/windows-amd64/)
 - [Download windows-arm64 folder](http://dl.whizapp.dup.company/windows-arm64/)
 
+## Screens
+
+![Settings screen](./Screen.png)
+
 ## Installation
 
 1. **Clone the repository**:
