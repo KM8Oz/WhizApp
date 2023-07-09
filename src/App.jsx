@@ -59,11 +59,10 @@ function App() {
             </div>
           </div>
         </div>
-        <hr />
-        <div className="scroll-tap">
+        {/* <div className="scroll-tap">
           <h2 className="heading">Usage</h2>
           <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />,
-        </div>
+        </div> */}
 
         <hr />
         <div className="scroll-tap">
