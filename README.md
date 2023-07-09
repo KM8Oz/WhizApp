@@ -1,8 +1,8 @@
 ## WhizApp
-Streamline and Empower Your WhatsApp Experience with AI-Driven Management
+Streamline and Empower Your WhatsApp Experience with AI-Driven whatsapp Chatbot
 > WhatsApp Desktop Assistant (GPT3.5-Powered)
 
-Welcome to the WhatsApp Desktop Assistant! This application is a GPT3.5-powered chatbot that acts as an assistant based on the user's chat history. It leverages the power of GPT3.5, fine-tuned using machine learning techniques, to provide intelligent responses and assist with various tasks.
+Welcome to the WhatsApp Desktop Assistant! This application is a GPT3.5-powered chatbot that acts as an assistant based on the user's Context text. It leverages the power of GPT3.5, to provide intelligent responses and assist with various tasks.
 
 ## Features
 
@@ -31,24 +31,23 @@ Welcome to the WhatsApp Desktop Assistant! This application is a GPT3.5-powered 
 
 1. **Clone the repository**:
    ```
-   git clone https://github.com/your/repository.git
+   git clone https://github.com/KM8Oz/WhizApp.git
    ```
 
 2. **Install dependencies**:
 
    ```
-   go mod download
+   go mod tidy
    ```
 
 3. **Provide WhatsApp API credentials**:
 
-   In order to connect to the WhatsApp service, you need to obtain the necessary API credentials. Obtain the `wpProto` credentials and replace the placeholders in the `config.yaml` file with your actual credentials.
+   In order to connect to the WhatsApp service, you need to obtain the necessary API credentials. Obtain the `wpProto` credentials and save it to [`device name`].db
 
 4. **Build and run the application**:
 
    ```
-   go build
-   ./whatsapp-desktop-assistant
+   go run .
    ```
 
 ## Usage
@@ -63,21 +62,18 @@ Welcome to the WhatsApp Desktop Assistant! This application is a GPT3.5-powered 
 
 3. **Interact with the Assistant**:
 
-   Begin chatting with the assistant by typing in the input field and pressing Enter. The assistant will generate responses based on your chat history and provide relevant information or assistance.
+   Begin chatting with the assistant by typing in the input field and pressing Enter. The assistant will generate responses based on your Context and provide relevant information or assistance.
 
 4. **Perform Tasks**:
 
-   You can ask the assistant to perform various tasks such as sending messages, retrieving chat history, managing contacts, and more. Simply provide the necessary commands or instructions, and the assistant will execute them accordingly.
+   You can ask the assistant to perform various tasks such as searching for images with `/image [query]`, managing contacts, and more. Simply provide the necessary commands or instructions, and the assistant will execute them accordingly.
 
 ## Configuration
 
-The application can be configured using the `config.yaml` file. The following configuration options are available:
-
 - `wpProto`:
-  - `phoneNumber`: Your WhatsApp account phone number.
   - `clientName`: The name of the client.
   - `sessionFile`: The file path to store the session information.
-  - `timeout`: The timeout duration for the WhatsApp connection.
+  - `targetsFile`: The file path to store the targets information.
 
 ## Contributing
 
